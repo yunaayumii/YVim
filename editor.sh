@@ -1,18 +1,34 @@
 #!/bin/bash
 
-echo "Welcome to yvim. Press 'q' to quit."
+# TODO: Initialize the MODE variable to "NORMAL"
+MODE="NORMAL"
+
+echo "Welcome to yvim. Mode: $MODE. (PRESS 'q' in Normal Mode to quit)"
 
 while true; do
-    # TODO: 1. Read a single character instantly and silently into a variable named 'key'
     read -rsn1 keypress
 
-    # TODO: 2. Check if the key is 'q'. If it is, echo "Exiting..." and break the loop.
-    if [[ "$keypress" == "q" ]]; then 
-        echo "Exiting..."
-        break
-    # TODO: 3. If it is not 'q', echo "You pressed: $key"
-    else 
-        echo "You pressed: $keypress" 
+    # TODO: Check if MODE is "NORMAL"
+    if [[ "$MODE" == "NORMAL" ]]; then
+        if [[ "$keypress" == "q" ]]; then 
+            echo "Exiting..."
+            break
+        elif [[ "$keypress" == "i" ]]; then
+            # TODO: Switch mode to INSERT and print a visual indicator
+            MODE="INSERT"
+            echo "Switched to Insert Mode"
+        else
+            echo "Normal command: $keypress"
+        fi
+    # TODO: Handle the "INSERT" mode logic
+    else
+        if [[ "$keypress" == $'\e' ]]; then
+            # TODO: Switch mode back to NORMAL and print a visual indicator
+            MODE="NORMAL"
+            echo "Switched to Normal Mode" 
+        else
+            echo "Typing: $keypress"
+        fi
     fi
 done
 
